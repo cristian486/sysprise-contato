@@ -1,0 +1,41 @@
+syntax="proto3";
+package pb;
+option java_multiple_files = true;
+
+message blank {
+
+}
+
+message Contato {
+  uint64 id = 1;
+  string email = 2;
+  string telefone = 3;
+}
+
+message CriarContatoRequest {
+  string email = 1;
+  string telefone = 2;
+  uint64 pessoaId = 3;
+}
+
+message PessoaId {
+  uint64 id = 1;
+}
+
+message ContatoId {
+  uint64 id = 1;
+}
+
+message ListaContatos {
+  repeated Contato contato = 1;
+}
+
+message ListaContatosId {
+  repeated ContatoId contatoId = 1;
+}
+
+service ContatoService {
+  rpc GetContatoByPessoaId(PessoaId) returns (ListaContatos){}
+  rpc CreateContatos(stream CriarContatoRequest) returns (blank) {}
+  rpc UpdateContato(Contato) returns (blank) {}
+}
